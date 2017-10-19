@@ -10,7 +10,7 @@
 #
 class bhv-cms::mysql(
   $mysql_dir            = '/data/mysql',
-  $mysql_pass           = $bhv-cms::params::mysql_pass,
+  $mysql_pass,
 ){
 
   $image_name           = 'mysql:8'

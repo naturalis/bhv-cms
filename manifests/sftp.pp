@@ -11,7 +11,7 @@
 class bhv-cms::sftp(
   $sftp_dir             = '/data/sftp',
   $sftp_port            = '2222',
-  $sftp_login,
+  $sftp_login
 ){
 
   $image_name           = 'atmoz/sftp:latest'
