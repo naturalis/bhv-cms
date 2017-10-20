@@ -15,7 +15,7 @@ class bhv_cms (
   $mysql_dir            = '/data/mysql',
   $mysql_pass,
   $phpmyadmin_port      = '8080',
-  $sftp_dir             = 'upload',
+  $sftp_dir             = '/data/sftp',
   $sftp_port            = '2222',
   $sftp_user,
   $sftp_pass,

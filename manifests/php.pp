@@ -25,7 +25,7 @@ class bhv_cms::php(
   docker::run { $container_name :
     image               => $image_name,
     ports               => ["${bhv_cms::php_port}:80"],
-    volumes             => ["${bhv_cms::php_dir}:/var/www/html"],
+    volumes             => ["${bhv_cms::php_dir}:/var/www/html","${bhv_cms::sftp_dir}:/var/www/html/upload"],
     require             => File[$bhv_cms::php_dir]
   }
 
