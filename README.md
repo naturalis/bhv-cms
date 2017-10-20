@@ -4,8 +4,12 @@ bhv_cms
 Puppet module to run docker containers for Boerhaave cms system.
 
 * This module builds 4 separate docker containers.
+  - mysql
+  - PHP/Apache
+  - PHPMyadmin
+  - Sftp
 
-* In the vm system different folders are mounted fior each function:
+* In the vm system different folders are mounted for each function:
   - /data/mysql/conf.d     = Mysql-container -> config
   - /data/mysql/db         = Mysql-container -> database
   - /data/php              = PHP/Apache-container (/var/www/html) -> web dir

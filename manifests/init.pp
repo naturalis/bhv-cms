@@ -32,7 +32,7 @@ class bhv_cms (
     ensure              => present,
     managehome          => true,
     password            => sha1('${sftp_user}'),
-    uid                 => '${sftp_uid}'
+    uid                 => $sftp_uid
   }
 
   class { 'docker' :
