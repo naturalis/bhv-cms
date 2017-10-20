@@ -31,15 +31,14 @@ class bhv_cms::sftp(
      ensure             => directory,
      owner              => $bhv_cms::sftp_user,
      group              => $bhv_cms::sftp_user,
-     mode               => '0777',
      require            => User[$bhv_cms::sftp_user]
    }
 
   docker::run { $container_name :
     image               => $image_name,
     ports               => ["${bhv_cms::sftp_port}:22"],
-    command             => "${bhv_cms::sftp_user}:${bhv_cms::sftp_pass}",
-    volumes             => ["${bhv_cms::sftp_dir}:/home/${bhv_cms::sftp_user}/${bhv_cms::sftp_dir}"],
+    command             => "${bhv_cms::sftp_user}:${bhv_cms::sftp_pass}:${bhv_cms::sftp_uid}",
+    volumes             => ["${bhv_cms::sftp_dir}:/home/${bhv_cms::sftp_user}/upload"],
     require             => [User[$bhv_cms::sftp_user],File[$bhv_cms::sftp_dir]]
   }
 

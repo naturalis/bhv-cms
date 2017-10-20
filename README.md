@@ -3,7 +3,15 @@ bhv_cms
 
 Puppet module to run docker containers for Boerhaave cms system.
 
-* CMS data is needed at /data/php on host system.
+* This module builds 4 separate docker containers.
+
+* In the vm system different folders are mounted fior each function:
+  - /data/mysql/conf.d     = Mysql-container -> config
+  - /data/mysql/db         = Mysql-container -> database
+  - /data/php              = PHP/Apache-container (/var/www/html) -> web dir
+  - /data/sftp             = Sftp-container (/home/foo/upload) & PHP/Apache-container (/var/www/html/upload) -> web dir
+
+* 
 
 Dependencies
 -------------

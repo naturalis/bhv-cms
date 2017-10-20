@@ -19,7 +19,8 @@ class bhv_cms::php(
   include 'docker'
 
   file { $bhv_cms::php_dir :
-    ensure              => directory
+    ensure              => directory,
+    group               => '100'
   }
 
   docker::run { $container_name :

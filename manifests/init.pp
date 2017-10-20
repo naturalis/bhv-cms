@@ -19,6 +19,7 @@ class bhv_cms (
   $sftp_port            = '2222',
   $sftp_user,
   $sftp_pass,
+  $sftp_uid             = '1100',
 ){
 
   file { $cms_dir :
@@ -31,6 +32,7 @@ class bhv_cms (
     ensure              => present,
     managehome          => true,
     password            => sha1('${sftp_user}'),
+    uid                 => '${sftp_uid}'
   }
 
   class { 'docker' :
