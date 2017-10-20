@@ -21,8 +21,6 @@ class bhv_cms (
   $sftp_pass,
 ){
 
-  include 'docker'
-
   file { $cms_dir :
     ensure              => directory,
   }
@@ -35,14 +33,24 @@ class bhv_cms (
     password            => sha1('${sftp_user}'),
   }
 
-  class { 'bhv_cms::php' : }
-
-  class { 'bhv_cms::mysql' : }
-
-  class { 'bhv_cms::phpmyadmin':
-    require             => Class['bhv_cms::php','bhv_cms::mysql']
+  class { 'docker' :
+    version             => 'latest',
   }
 
-  class { 'bhv_cms::sftp' : }
+  class { 'bhv_cms::php' :
+    require             => Class['docker']
+  }
+
+  class { 'bhv_cms::mysql' :
+    require             => Class['docker']
+  }
+
+  class { 'bhv_cms::phpmyadmin':
+    require             => Class['docker','bhv_cms::php','bhv_cms::mysql']
+  }
+
+  class { 'bhv_cms::sftp' :
+    require             => Class['docker']
+  }
 
 }

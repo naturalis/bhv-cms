@@ -37,7 +37,7 @@ class bhv_cms::sftp(
   docker::run { $container_name :
     image               => $image_name,
     ports               => ["${bhv_cms::sftp_port}:22"],
-    command             => "${bhv_cms::sftp_user}:${bhv_cms::sftp_pass}"
+    command             => "${bhv_cms::sftp_user}:${bhv_cms::sftp_pass}",
     volumes             => ["${bhv_cms::php_dir}/${bhv_cms::sftp_dir}:/home/${bhv_cms::sftp_user}/${bhv_cms::sftp_dir}"],
     require             => [User[$bhv_cms::sftp_user],File["/home/${bhv_cms::sftp_user}/${bhv_cms::sftp_dir}"]]
   }
