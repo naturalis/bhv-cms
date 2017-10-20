@@ -1,29 +1,14 @@
 bhv_cms
 ===================
 
-Puppet module to run docker containers for Boerhaave cms system
+Puppet module to run docker containers for Boerhaave cms system.
 
-Parameters
--------------
---
-
-
-Classes
--------------
-- bhv_cms
-- bhv_cms::php
-- bhv_cms::mysql
-- bhv_cms::phpmyadmin
-- bhv_cms::sftp
-
-
+* CMS data is needed at /data/php on host system.
 
 Dependencies
 -------------
 - garethr/garethr-docker >= 5.3.0
 - puppetlabs/stdlib
-
-
 
 Puppet code
 ```

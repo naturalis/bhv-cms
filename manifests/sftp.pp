@@ -38,7 +38,7 @@ class bhv_cms::sftp(
     image               => $image_name,
     ports               => ["${bhv_cms::sftp_port}:22"],
     command             => "${bhv_cms::sftp_user}:${bhv_cms::sftp_pass}"
-    volumes             => ["/home/${bhv_cms::sftp_user}/upload:/home/foo/upload"],
+    volumes             => ["${bhv_cms::php_dir}/${bhv_cms::sftp_dir}:/home/${bhv_cms::sftp_user}/${bhv_cms::sftp_dir}"],
     require             => [User[$bhv_cms::sftp_user],File["/home/${bhv_cms::sftp_user}/${bhv_cms::sftp_dir}"]]
   }
 
