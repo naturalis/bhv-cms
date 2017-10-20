@@ -1,4 +1,4 @@
-# == Class: bhv-cms::phpmyadmin
+# == Class: bhv_cms::phpmyadmin
 #
 # === Authors
 #
@@ -8,8 +8,7 @@
 #
 # Apache2 license 2017.
 #
-class bhv-cms::phpmyadmin(
-  $phpmyadmin_port      = '8080'
+class bhv_cms::phpmyadmin(
 ){
 
   $image_name           = 'phpmyadmin/phpmyadmin:latest'
@@ -21,7 +20,7 @@ class bhv-cms::phpmyadmin(
 
   docker::run { $container_name :
     image               => $image_name,
-    ports               => ["${phpmyadmin_port}:80"],
+    ports               => ["${bhv_cms::phpmyadmin_port}:80"],
     links               => ['mysql:db'],
   }
 

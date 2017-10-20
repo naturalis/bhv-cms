@@ -1,4 +1,4 @@
-# == Class: bhv-cms::php
+# == Class: bhv_cms::php
 #
 # === Authors
 #
@@ -8,9 +8,7 @@
 #
 # Apache2 license 2017.
 #
-class bhv-cms::php(
-  $php_port             = '80',
-  $cms_dir              = '/data/php'
+class bhv_cms::php(
 ){
 
   $image_name           = 'php:7.0-apache'
@@ -20,15 +18,15 @@ class bhv-cms::php(
 
   include 'docker'
 
-  file { $cms_dir :
+  file { $bhv_cms::php_dir :
     ensure              => directory
   }
 
   docker::run { $container_name :
     image               => $image_name,
-    ports               => ["${php_port}:80"],
-    volumes             => ["${cms_dir}:/var/www/html/upload"],
-    require             => File[$cms_dir]
+    ports               => ["${bhv_cms::php_port}:80"],
+    volumes             => ["${bhv_cms::php_dir}:/var/www/html/upload"],
+    require             => File[$bhv_cms::php_dir]
   }
 
   exec { $service_cmd :

@@ -1,4 +1,4 @@
-# == Class: bhv-cms::sftp
+# == Class: bhv_cms::sftp
 #
 # === Authors
 #
@@ -8,11 +8,17 @@
 #
 # Apache2 license 2017.
 #
-class bhv-cms::sftp(
-  $sftp_dir             = '/data/sftp',
-  $sftp_port            = '2222',
-  $sftp_login
+class bhv_cms::sftp(
 ){
+
+# setup sftp user
+  user { $sftp_user:
+    comment             => "sftp user",
+    home                => "/home/${bhv_cms::sftp_user}",
+    ensure              => present,
+    managehome          => true,
+    password            => sha1('${bhv_cms::sftp_user}'),
+  }
 
   $image_name           = 'atmoz/sftp:latest'
   $container_name       = 'sftp'
@@ -21,16 +27,19 @@ class bhv-cms::sftp(
 
   include 'docker'
 
-  file { $sftp_dir :
-    ensure              => directory,
-  }
+  file { "/home/${bhv_cms::sftp_user}/${bhv_cms::sftp_dir}" :
+     ensure             => directory,
+     owner              => $bhv_cms::sftp_user,
+     group              => $bhv_cms::sftp_user,
+     mode               => '0777'
+   }
 
   docker::run { $container_name :
     image               => $image_name,
-    ports               => ["${sftp_port}:22"],
-    command             => $sftp_login,
-    volumes             => ["${sftp_dir}:/tmp"],
-    require             => File[$sftp_dir]
+    ports               => ["${bhv_cms::sftp_port}:22"],
+    command             => "${bhv_cms::sftp_user}:${bhv_cms::sftp_pass}"
+    volumes             => ["/home/${bhv_cms::sftp_user}/upload:/home/foo/upload"],
+    require             => [User[$bhv_cms::sftp_user],File["/home/${bhv_cms::sftp_user}/${bhv_cms::sftp_dir}"]]
   }
 
   exec { $service_cmd :

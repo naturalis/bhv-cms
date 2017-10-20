@@ -1,4 +1,4 @@
-bhv-cms
+bhv_cms
 ===================
 
 Puppet module to run docker containers for Boerhaave cms system
@@ -10,11 +10,11 @@ Parameters
 
 Classes
 -------------
-- bhv-cms
-- bhv-cms::php
-- bhv-cms::mysql
-- bhv-cms::phpmyadmin
-- bhv-cms::sftp
+- bhv_cms
+- bhv_cms::php
+- bhv_cms::mysql
+- bhv_cms::phpmyadmin
+- bhv_cms::sftp
 
 
 
@@ -27,7 +27,7 @@ Dependencies
 
 Puppet code
 ```
-class { bhv-cms: }
+class { bhv_cms: }
 ```
 Result
 -------------

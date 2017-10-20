@@ -1,4 +1,4 @@
-# == Class: bhv-cms::mysql
+# == Class: bhv_cms::mysql
 #
 # === Authors
 #
@@ -8,9 +8,7 @@
 #
 # Apache2 license 2017.
 #
-class bhv-cms::mysql(
-  $mysql_dir            = '/data/mysql',
-  $mysql_pass,
+class bhv_cms::mysql(
 ){
 
   $image_name           = 'mysql:8'
@@ -20,15 +18,15 @@ class bhv-cms::mysql(
 
   include 'docker'
 
-  file { $mysql_dir :
-    ensure => directory,
+  file { $bhv_cms::mysql_dir :
+    ensure              => directory,
   }
 
   docker::run { $container_name :
     image               => $image_name,
-    volumes             => ["${mysql_dir}:/var/lib/mysql","${mysql_dir}/conf.d:/etc/mysql/conf.d"],
-    env                 => ["MYSQL_ROOT_PASSWORD=${mysql_pass}"],
-    require             => File[$mysql_dir]
+    volumes             => ["${bhv_cms::mysql_dir}/db:/var/lib/mysql","${bhv_cms::mysql_dir}/conf.d:/etc/mysql/conf.d"],
+    env                 => ["MYSQL_ROOT_PASSWORD=${bhv_cms::mysql_pass}"],
+    require             => File[$bhv_cms::mysql_dir]
   }
 
   exec { $service_cmd :
