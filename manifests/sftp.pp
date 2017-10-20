@@ -40,7 +40,7 @@ class bhv_cms::sftp(
     ports               => ["${bhv_cms::sftp_port}:22"],
     command             => "${bhv_cms::sftp_user}:${bhv_cms::sftp_pass}",
     volumes             => ["${bhv_cms::sftp_dir}:/home/${bhv_cms::sftp_user}/${bhv_cms::sftp_dir}"],
-    require             => [User[$bhv_cms::sftp_user],File["/home/${bhv_cms::sftp_user}/${bhv_cms::sftp_dir}"]]
+    require             => [User[$bhv_cms::sftp_user],File[$bhv_cms::sftp_dir]]
   }
 
   exec { $service_cmd :
