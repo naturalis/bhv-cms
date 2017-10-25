@@ -12,12 +12,13 @@ class bhv_cms::sftp(
 ){
 
 # setup sftp user
-  user { $sftp_user:
+  user { "${bhv_cms::sftp_user}":
     comment             => "sftp user",
     home                => "/home/${bhv_cms::sftp_user}",
     ensure              => present,
     managehome          => true,
     password            => sha1('${bhv_cms::sftp_user}'),
+    uid                 => "${bhv_cms::sftp_uid}"
   }
 
   $image_name           = 'atmoz/sftp:latest'

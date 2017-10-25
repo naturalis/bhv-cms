@@ -26,15 +26,6 @@ class bhv_cms (
     ensure              => directory,
   }
 
-  user { $sftp_user :
-    comment             => "sftp user",
-    home                => "/home/${sftp_user}",
-    ensure              => present,
-    managehome          => true,
-    password            => sha1('${sftp_user}'),
-    uid                 => $sftp_uid
-  }
-
   class { 'docker' :
     version             => 'latest',
   }
