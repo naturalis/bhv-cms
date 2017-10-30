@@ -12,7 +12,7 @@ class bhv_cms::php(
 ){
 
   $container_name       = 'php'
-  $diffcmd              = "/usr/bin/diff <(docker image inspect --format='{{.Id}}' ${php_image}) <(docker inspect --format='{{.Image}}' ${container_name})"
+  $diffcmd              = "/usr/bin/diff <(docker image inspect --format='{{.Id}}' ${bhv_cms::php_image}) <(docker inspect --format='{{.Image}}' ${container_name})"
   $service_cmd          = "/usr/sbin/service docker-${container_name} restart"
 
   include 'docker'
@@ -23,7 +23,7 @@ class bhv_cms::php(
   }
 
   docker::run { $container_name :
-    image               => $php_image,
+    image               => $bhv_cms::php_image,
     ports               => ["${bhv_cms::php_port}:80"],
     volumes             => ["${bhv_cms::php_dir}:/var/www/html","${bhv_cms::sftp_dir}:/var/www/html/content-clients"],
     require             => File[$bhv_cms::php_dir]
@@ -31,10 +31,10 @@ class bhv_cms::php(
 
   exec { $service_cmd :
     unless              => $diffcmd,
-    require             => [Exec["/usr/bin/docker pull ${php_image}"],Docker::Run[$container_name]]
+    require             => [Exec["/usr/bin/docker pull ${bhv_cms::php_image}"],Docker::Run[$container_name]]
   }
 
-  exec {"/usr/bin/docker pull ${php_image}" :
+  exec {"/usr/bin/docker pull ${bhv_cms::php_image}" :
     schedule            => 'everyday-php',
   }
 
