@@ -31,12 +31,12 @@ class bhv_cms (
     version             => 'latest',
   }
 
-  class { 'bhv_cms::php' :
+  class { 'bhv_cms::mysql' :
     require             => Class['docker']
   }
 
-  class { 'bhv_cms::mysql' :
-    require             => Class['docker']
+  class { 'bhv_cms::php' :
+    require             => Class['docker','bhv_cms::mysql']
   }
 
   class { 'bhv_cms::phpmyadmin':
