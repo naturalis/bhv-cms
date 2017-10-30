@@ -22,6 +22,7 @@ class bhv_cms::phpmyadmin(
     image               => $image_name,
     ports               => ["${bhv_cms::phpmyadmin_port}:80"],
     links               => ['mysql:db'],
+    pull_on_start       => true
   }
 
   exec { $service_cmd :

@@ -27,6 +27,7 @@ class bhv_cms::php(
     ports               => ["${bhv_cms::php_port}:80"],
     links               => ['mysql:db'],
     volumes             => ["${bhv_cms::php_dir}:/var/www/html","${bhv_cms::sftp_dir}:/var/www/html/content-clients"],
+    pull_on_start       => true,
     require             => File[$bhv_cms::php_dir]
   }
 
