@@ -38,8 +38,8 @@ class bhv_cms::sftp(
   docker::run { $container_name :
     image               => $image_name,
     ports               => ["${bhv_cms::sftp_port}:22"],
-    command             => "${bhv_cms::sftp_user}:${bhv_cms::sftp_pass}:${bhv_cms::sftp_uid}",
-    volumes             => ["${bhv_cms::sftp_dir}:/home/${bhv_cms::sftp_user}/content-clients"],
+#   command             => "${bhv_cms::sftp_user}:${bhv_cms::sftp_pass}:${bhv_cms::sftp_uid}",
+    volumes             => ["${bhv_cms::sftp_dir}:/home/${bhv_cms::sftp_user}/content-clients","/data/sftp-config/users.conf:/etc/sftp/users.conf:ro"],
     pull_on_start       => true,
     require             => [User[$bhv_cms::sftp_user],File[$bhv_cms::sftp_dir]]
   }
