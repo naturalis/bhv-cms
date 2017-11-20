@@ -26,12 +26,11 @@ class bhv_cms::mysql(
     image               => $image_name,
     volumes             => ["${bhv_cms::mysql_dir}/db:/var/lib/mysql","${bhv_cms::mysql_dir}/conf.d:/etc/mysql/conf.d"],
     env                 => ["MYSQL_ROOT_PASSWORD=${bhv_cms::mysql_pass}"],
-    pull_on_start       => true,
     require             => File[$bhv_cms::mysql_dir]
   }
 
   exec { $service_cmd :
-    unless              => $diffcmd,
+    onlyif              => $diffcmd,
     require             => [Exec["/usr/bin/docker pull ${image_name}"],Docker::Run[$container_name]]
   }
 

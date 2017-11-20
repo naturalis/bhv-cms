@@ -39,7 +39,6 @@ class bhv_cms::sftp(
     image               => $image_name,
     ports               => ["${bhv_cms::sftp_port}:22"],
     volumes             => ["${bhv_cms::sftp_dir}:/home/${bhv_cms::sftp_user}/content-clients","/data/sftp-config/users.conf:/etc/sftp/users.conf:ro"],
-    pull_on_start       => true,
     require             => [User[$bhv_cms::sftp_user],File[$bhv_cms::sftp_dir]]
   }
 
@@ -49,10 +48,11 @@ class bhv_cms::sftp(
   command      => '/usr/sbin/usermod -g www-data boerhaave',
   tty          => true,
   unless       => 'id boerhaave | grep www-data',
+  require      => Docker::Run[$container_name],
 }
 
   exec { $service_cmd :
-    unless              => $diffcmd,
+    onlyif              => $diffcmd,
     require             => [Exec["/usr/bin/docker pull ${image_name}"],Docker::Run[$container_name]]
   }
 

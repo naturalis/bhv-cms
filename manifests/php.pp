@@ -27,12 +27,11 @@ class bhv_cms::php(
     ports               => ["${bhv_cms::php_port}:80"],
     links               => ['mysql:db'],
     volumes             => ["${bhv_cms::php_dir}:/var/www/html","${bhv_cms::sftp_dir}:/var/www/html/content-clients","/data/php-config/php.ini:/usr/local/etc/php/php.ini"],
-    pull_on_start       => true,
     require             => File[$bhv_cms::php_dir]
   }
 
   exec { $service_cmd :
-    unless              => $diffcmd,
+    onlyif              => $diffcmd,
     require             => [Exec["/usr/bin/docker pull ${bhv_cms::php_image}"],Docker::Run[$container_name]]
   }
 
