@@ -45,7 +45,7 @@ class bhv_cms::sftp(
   docker::exec { 'usermod':
   detach       => true,
   container    => $container_name,
-  command      => '/usr/sbin/usermod -g www-data boerhaave',
+  command      => 'sleep 5 && /usr/sbin/usermod -g www-data boerhaave',
   tty          => true,
   unless       => 'id boerhaave | grep www-data',
   require      => Docker::Run[$container_name],
