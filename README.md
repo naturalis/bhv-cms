@@ -15,9 +15,9 @@ Puppet module to run docker containers for Boerhaave CMS system.
     - /data/sftp             = Sftp-container (/home/boerhaave/content-clients) & PHP/Apache-container (/var/www/html/content-clients) -> web dir
 
 ## Dependencies
-
-* garethr/garethr-docker >= 5.3.0
-* puppetlabs/stdlib
+* We use the following dependencies:
+    - [garethr/garethr-docker:5.3.0](https://github.com/garethr/garethr-docker/)
+    - [puppetlabs/stdlib](https://github.com/puppetlabs/puppetlabs-stdlib)
 
 Puppet code:
 
