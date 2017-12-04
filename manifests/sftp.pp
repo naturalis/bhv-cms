@@ -39,6 +39,7 @@ class bhv_cms::sftp(
     image               => $image_name,
     ports               => ["${bhv_cms::sftp_port}:22"],
     volumes             => ["${bhv_cms::sftp_dir}:/home/${bhv_cms::sftp_user}/content-clients",'/data/sftp-config/users.conf:/etc/sftp/users.conf:ro'],
+    pull_on_start       => false,
     require             => [User[$bhv_cms::sftp_user],File[$bhv_cms::sftp_dir]]
   }
 
