@@ -11,7 +11,7 @@
 class bhv_cms::mysql(
 ){
 
-  $image_name           = 'mysql:8'
+  $image_name           = 'mysql:5.7.21'
   $container_name       = 'mysql'
   $diffcmd              = "/usr/bin/diff <(docker image inspect --format='{{.Id}}' ${image_name}) <(docker inspect --format='{{.Image}}' ${container_name})"
   $service_cmd          = "/usr/sbin/service docker-${container_name} restart"
